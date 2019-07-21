@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import './login.less'
-import { Form, Icon, Input, Button, Checkbox } from 'antd';
+import { Form, Icon, Input, Button } from 'antd';
 
 
 // export default class Login extends Component{
@@ -9,10 +9,12 @@ import { Form, Icon, Input, Button, Checkbox } from 'antd';
     handleSubmit = e => {
       const form = this.props.form
       const formobj = form.getFieldsValue()
-      console.log(111,formobj)
-
       e.preventDefault();
     };
+
+    validatorPwd=(rule, value, callback)=>{
+      console.log('validatorPwd',11,rule,22,value,33,callback)
+    }
 
     render () {
     //写在render里面，得到强大的form对象
@@ -29,7 +31,12 @@ import { Form, Icon, Input, Button, Checkbox } from 'antd';
             <Form.Item>
               {getFieldDecorator('username', {
                 initialValue:'默认哇哈哈',
-                rules: [{ required: true, message: 'Please input your username!' }],
+                // 声明式验证
+                rules: [{ required: true, message: '请输入用户名' },
+                {min:4,message:'用户名至少4位'},
+                {max:12,message:'用户名最大12位'}
+                // {pattern:/^[a-zA-Z0-9]+$/,message:'用户名必须是英文、数字或下划线'}
+              ],
               })(
                 <Input
                   prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
@@ -39,7 +46,10 @@ import { Form, Icon, Input, Button, Checkbox } from 'antd';
             </Form.Item>
             <Form.Item>
               {getFieldDecorator('password', {
-                rules: [{ required: true, message: 'Please input your Password!' }],
+                // 自定义验证
+                rules:[
+                  {validator:this.validatorPwd}
+                ]
               })(
                 <Input
                   prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
