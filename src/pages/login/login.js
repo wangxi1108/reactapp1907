@@ -6,20 +6,21 @@ import { Form, Icon, Input, Button } from 'antd';
 // export default class Login extends Component{
   class Login extends Component{
    
+    // 表单统一校验
     handleSubmit = e => {
-      const form = this.props.form
-      const formobj = form.getFieldsValue()
       e.preventDefault();
+      const form = this.props.form
+      // const formobj = form.getFieldsValue()  //获取表单对象值
       form.validateFields((err, values) => {
-        console.log('validateFields-', err,22,values);
         if (!err) {
-            console.log('没有错可以提交', values);
-        } 
+          console.log('没有错可以提交', values);
+        } else {
+          alert('有错')
+        }
       })
     };
-    //对密码进行自定义验证
+    //2、对密码进行自定义验证
     validatorPwd = (rule, value, callback) => {
-      console.log('validatorPwd', value)
       if (!value) {
         callback('请输入密码！')
       }
@@ -30,10 +31,6 @@ import { Form, Icon, Input, Button } from 'antd';
         callback('密码必须是英文、数字或下划线组成')                
       }
       callback()
-    }
-
-    validatorPwd=(rule, value, callback)=>{
-      console.log('validatorPwd',11,rule,22,value,33,callback)
     }
 
     render () {
