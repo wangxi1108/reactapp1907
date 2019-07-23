@@ -7,18 +7,15 @@ import { Form, Icon, Input, Button } from 'antd';
   class Login extends Component{
    
     handleSubmit = e => {
-      e.preventDefault();
-
       const form = this.props.form
-      // const formobj = form.getFieldsValue()
+      const formobj = form.getFieldsValue()
+      e.preventDefault();
       form.validateFields((err, values) => {
         console.log('validateFields-', err,22,values);
         if (!err) {
             console.log('没有错可以提交', values);
-        } else {
-          
-          }
-        })
+        } 
+      })
     };
     //对密码进行自定义验证
     validatorPwd = (rule, value, callback) => {
@@ -33,6 +30,10 @@ import { Form, Icon, Input, Button } from 'antd';
         callback('密码必须是英文、数字或下划线组成')                
       }
       callback()
+    }
+
+    validatorPwd=(rule, value, callback)=>{
+      console.log('validatorPwd',11,rule,22,value,33,callback)
     }
 
     render () {
@@ -50,7 +51,12 @@ import { Form, Icon, Input, Button } from 'antd';
             <Form.Item>
               {getFieldDecorator('username', {
                 initialValue:'默认哇哈哈',
-                rules: [{ required: true, message: 'Please input your username!' }],
+                // 声明式验证
+                rules: [{ required: true, message: '请输入用户名' },
+                {min:4,message:'用户名至少4位'},
+                {max:12,message:'用户名最大12位'}
+                // {pattern:/^[a-zA-Z0-9]+$/,message:'用户名必须是英文、数字或下划线'}
+              ],
               })(
                 <Input
                   prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
@@ -60,7 +66,8 @@ import { Form, Icon, Input, Button } from 'antd';
             </Form.Item>
             <Form.Item>
               {getFieldDecorator('password', {
-                rules: [
+                // 自定义验证
+                rules:[
                   {validator:this.validatorPwd}
                 ]
               })(
