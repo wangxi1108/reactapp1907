@@ -1,8 +1,13 @@
 import React, { Component } from 'react'
 import './login.less'
-import { Form, Icon, Input, Button } from 'antd';
+import { Form, Icon, Input, Button,message } from 'antd';
 import {reLogin} from '../../api/index'
+import memory from '../../utils/memory'
 
+const deUser = {
+  username:'react娃哈哈',
+  id:'react01'
+}
 
 // export default class Login extends Component{
   class Login extends Component{
@@ -12,19 +17,32 @@ import {reLogin} from '../../api/index'
       e.preventDefault();
       const form = this.props.form
       // const formobj = form.getFieldsValue()  //获取表单对象值
-      form.validateFields((err, values) => {
+      form.validateFields( (err, values) => {
+          // 验证成功
         if (!err) {
-          console.log('没有错可以提交', values);
-          // const { username, password } = values
-          // try {
-          //   // const response = await
-
+          console.log(111)
+          //1、有请求的逻辑------
+          const { username, password } = values
+          // const response = await reLogin(username,password)
+          // console.log('登录成功response',response)
+          // const res = response.data;
+          // if(res.status === 0){
+          //   message.success('登录成功')
+          //   //跳转到管理界面-不需要回退
+          //   this.props.history.replace('/admin')
+          // }else{
+          //   message.error(res.message)
           // }
+          // console.log('登录成功',response)
 
+          //2、无请求自己本地写：直接定义用户user信息,并保存在内存中--
+          
+          memory.user = deUser
+          this.props.history.replace('/admin111')
 
 
         } else {
-          alert('有错')
+          alert('验证有错')
         }
       })
     };

@@ -73,3 +73,31 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/tr
 代理：
 "proxy":"http://localhost:5000"
 
+原始：
+// 表单统一校验
+    handleSubmit = e => {
+      e.preventDefault();
+      const form = this.props.form
+      // const formobj = form.getFieldsValue()  //获取表单对象值
+      form.validateFields(async (err, values) => {
+        if (!err) {
+          console.log('没有错可以提交', values);
+          const { username, password } = values
+          try {
+            const response = await reLogin(username,password)
+            console.log('登录成功',response)
+
+          }catch(error){
+            alert('请求报错',error)
+          }
+
+        } else {
+          alert('验证有错')
+        }
+      })
+    };
+
+    2、不同地方路由跳转写法不同
+    render中：return <Redirect to='/' />
+    render外面函数中：this.props.history.replace('/admin')
+
