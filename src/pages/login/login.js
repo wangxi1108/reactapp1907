@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import './login.less'
 import { Form, Icon, Input, Button } from 'antd';
+import {reLogin} from '../../api/index'
 
 
 // export default class Login extends Component{
@@ -14,6 +15,14 @@ import { Form, Icon, Input, Button } from 'antd';
       form.validateFields((err, values) => {
         if (!err) {
           console.log('没有错可以提交', values);
+          // const { username, password } = values
+          // try {
+          //   // const response = await
+
+          // }
+
+
+
         } else {
           alert('有错')
         }
@@ -57,7 +66,7 @@ import { Form, Icon, Input, Button } from 'antd';
               })(
                 <Input
                   prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
-                  placeholder="Username"
+                  placeholder="username"
                 />,
               )}
             </Form.Item>
