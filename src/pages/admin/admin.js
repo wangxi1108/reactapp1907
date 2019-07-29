@@ -23,7 +23,7 @@ export default class Admin extends Component{
           </Sider>
           <Layout>
             <HeaderTop></HeaderTop>
-            <Content style={{background:'#fff'}}>Content</Content>
+            <Content style={{background:'#fff'}}>Content  登录：{user.username} </Content>
             <Footer style={{textAlign:'center'}}>Footer</Footer>
           </Layout>
         </Layout>

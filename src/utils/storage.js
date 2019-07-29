@@ -6,7 +6,7 @@ const User_key = 'user_key'
 
 export default {
   saveUser (user) {
-    store.set('User_key',user)
+    store.set(User_key, user)
     
   },
   getUser () { 

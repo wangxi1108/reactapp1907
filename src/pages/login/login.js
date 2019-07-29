@@ -7,12 +7,6 @@ import memory from '../../utils/memory'
 import {Link} from 'react-router-dom'
 import storage from '../../utils/storage'
 
-
-// const deUser = {
-//   username:'react娃哈哈',
-//   id:'react01'
-// }
-
 // export default class Login extends Component{
   class Login extends Component{
    
@@ -72,8 +66,8 @@ import storage from '../../utils/storage'
 
     //如果用户已经登录，自动跳转到管理界面
       const user = memory.user
-      if (user && user.length>0) {
-        return <Redirect to='/' />
+      if (user) {
+        return <Redirect to='/admin' />
       }
     return (
       <div className="login">
