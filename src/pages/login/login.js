@@ -3,11 +3,12 @@ import './login.less'
 import { Form, Icon, Input, Button,message } from 'antd';
 import {reLogin} from '../../api/index'
 import memory from '../../utils/memory'
+import {Link} from 'react-router-dom'
 
-const deUser = {
-  username:'react娃哈哈',
-  id:'react01'
-}
+// const deUser = {
+//   username:'react娃哈哈',
+//   id:'react01'
+// }
 
 // export default class Login extends Component{
   class Login extends Component{
@@ -37,8 +38,8 @@ const deUser = {
 
           //2、无请求自己本地写：直接定义用户user信息,并保存在内存中--
           
-          memory.user = deUser
-          this.props.history.replace('/admin111')
+          memory.user = values
+          this.props.history.replace('/admin')
 
 
         } else {
@@ -71,6 +72,9 @@ const deUser = {
         <header className="login-header">login</header>
         <section className="login-content">
           <h3>登录</h3>
+
+          {/* <Link to="/admin">跳转</Link> */}
+
           <Form onSubmit={this.handleSubmit} className="login-form">
             <Form.Item>
               {getFieldDecorator('username', {

@@ -101,3 +101,7 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/tr
     render中：return <Redirect to='/' />
     render外面函数中：this.props.history.replace('/admin')
 
+3、定义路由
+//exact不能少，少了跳不了
+// 用Router时要：import { BrowserRouter as Router,Route,Switch } from 'react-router-dom';
+

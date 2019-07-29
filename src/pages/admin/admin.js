@@ -6,6 +6,7 @@ import memory from '../../utils/memory'
 export default class Admin extends Component{
   render () {
     const user = memory.user
+    console.log(user)
     if(!user){
       return <Redirect to='/' />
     }
