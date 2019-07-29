@@ -1,9 +1,12 @@
 import React, { Component } from 'react'
 import './login.less'
 import { Form, Icon, Input, Button,message } from 'antd';
-import {reLogin} from '../../api/index'
+import { reLogin } from '../../api/index'
+import { Redirect } from 'react-router-dom'
 import memory from '../../utils/memory'
 import {Link} from 'react-router-dom'
+import storage from '../../utils/storage'
+
 
 // const deUser = {
 //   username:'react娃哈哈',
@@ -39,6 +42,7 @@ import {Link} from 'react-router-dom'
           //2、无请求自己本地写：直接定义用户user信息,并保存在内存中--
           
           memory.user = values
+          storage.saveUser(values)
           this.props.history.replace('/admin')
 
 
@@ -66,6 +70,11 @@ import {Link} from 'react-router-dom'
     const form = this.props.form
     const {getFieldDecorator} = form
 
+    //如果用户已经登录，自动跳转到管理界面
+      const user = memory.user
+      if (user && user.length>0) {
+        return <Redirect to='/' />
+      }
     return (
       <div className="login">
          {/* <Header>header</Header> */}
