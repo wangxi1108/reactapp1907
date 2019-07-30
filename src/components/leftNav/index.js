@@ -1,6 +1,6 @@
 import React, {Component } from 'react'
 import { Menu, Icon } from 'antd';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import './index.less'
 import logo from '../../assets/images/reactlogo.svg';
 import menuList from '../../config/menuConfig'
@@ -8,7 +8,7 @@ import menuList from '../../config/menuConfig'
 
 const { SubMenu } = Menu;
 
-export default class LeftNav extends Component{
+class LeftNav extends Component{
 //写个方法根据menu菜单数据生成对应标签数组，用map+递归
   getMenuNodes_maps = (menuList) => {
     return menuList.map(item => {
@@ -70,6 +70,10 @@ export default class LeftNav extends Component{
   }
 
   render () {
+    //
+    const path = this.props.location.pathname
+    console.log(33,this.props)
+
     return (
       <div className="left-nav">
         <Link to="/admin" className="left-nav-head">
@@ -79,7 +83,8 @@ export default class LeftNav extends Component{
         <Menu
           mode="inline"
           theme="dark"
-          defaultSelectedKeys={['1']}
+          // defaultSelectedKeys={[path]}
+          selectedKeys={[path]}
           defaultOpenKeys={['sub1']}
         >
           {this.getMenuNodes(menuList)}
@@ -152,3 +157,8 @@ export default class LeftNav extends Component{
     )
   }
 }
+
+/*
+withRouter高阶组件：包装非路由组件，返回一个新的组件，新的组件向非路由组件传递3个属性：history、location、match
+*/
+export default withRouter(LeftNav)
