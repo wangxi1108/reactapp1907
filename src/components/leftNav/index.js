@@ -1,82 +1,150 @@
 import React, {Component } from 'react'
-import { Layout, Menu, Breadcrumb, Icon, Button } from 'antd';
+import { Menu, Icon } from 'antd';
 import { Link } from 'react-router-dom';
 import './index.less'
 import logo from '../../assets/images/reactlogo.svg';
+import menuList from '../../config/menuConfig'
 
 
 const { SubMenu } = Menu;
-const { Sider } = Layout;
-export default class LeftNav extends Component{
-  state = {
-    collapsed: false,
-  };
 
-  toggleCollapsed = () => {
-    this.setState({
-      collapsed: !this.state.collapsed,
-    });
-  };
+export default class LeftNav extends Component{
+//写个方法根据menu菜单数据生成对应标签数组，用map+递归
+  getMenuNodes_maps = (menuList) => {
+    return menuList.map(item => {
+      if (!item.children) {
+        return (
+          <Menu.Item key={item.key}>
+            <Link to={item.key}>
+              <Icon type={item.icon} />
+              <span>{item.title}</span>
+            </Link> 
+          </Menu.Item>
+        )
+      } else {
+        return (
+          <SubMenu
+            key={item.key}
+            title={
+              <span>
+                  <Icon type={item.icon} />
+                  <span>{item.title}</span>
+              </span>
+            }
+          >
+            {this.getMenuNodes(item.children)}
+          </SubMenu>
+        )
+      }
+    })
+  }
+//reduce 对对象路由数据累加方法
+  getMenuNodes = (menuList) => {
+    return menuList.reduce((pre, item) => {
+      if (!item.children) {
+        pre.push((
+          <Menu.Item key={item.key}>
+            <Link to={item.key}>
+              <Icon type={item.icon} />
+              <span>{item.title}</span>
+            </Link> 
+          </Menu.Item>
+        ))
+      } else {
+        pre.push((
+          <SubMenu
+            key={item.key}
+            title={
+              <span>
+                  <Icon type={item.icon} />
+                  <span>{item.title}</span>
+              </span>
+            }
+          >
+            {this.getMenuNodes(item.children)}
+          </SubMenu>
+        ))
+      }
+      return pre
+    },[])
+  }
 
   render () {
     return (
       <div className="left-nav">
-        <Link to="/" className="left-nav-head">
-          <img src={logo} />
+        <Link to="/admin" className="left-nav-head">
+          <img src= {logo} alt='logo' />
           <h3>react-logo</h3>
         </Link>
-        {/* <Button type="primary" onClick={this.toggleCollapsed} style={{ marginBottom: 16 }}>
-          <Icon type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'} />
-        </Button> */}
         <Menu
-          defaultSelectedKeys={['1']}
-          defaultOpenKeys={['sub1']}
           mode="inline"
           theme="dark"
-          inlineCollapsed={this.state.collapsed}
+          defaultSelectedKeys={['1']}
+          defaultOpenKeys={['sub1']}
         >
-          <Menu.Item key="1">
-            <Icon type="pie-chart" />
-            <span>Option 1</span>
+          {this.getMenuNodes(menuList)}
+
+          {/* <Menu.Item key="1">
+            <Link to='/admin/home'>
+              <Icon type="pie-chart" />
+              <span>首页一级Menu.Item</span>
+            </Link> 
           </Menu.Item>
           <Menu.Item key="2">
-            <Icon type="desktop" />
-            <span>Option 2</span>
+            <Link to='/admin/user'>
+              <Icon type="desktop" />
+              <span>用户管理</span>
+              </Link>
           </Menu.Item>
           <Menu.Item key="3">
-            <Icon type="inbox" />
-            <span>Option 3</span>
+            <Link to='/admin/role'>
+              <Icon type="inbox" />
+              <span>角色管理</span>
+            </Link>
           </Menu.Item>
           <SubMenu
             key="sub1"
             title={
               <span>
-                <Icon type="mail" />
-                <span>Navigation One</span>
+                  <Icon type="mail" />
+                  <span>商品管理</span>
               </span>
             }
           >
-            <Menu.Item key="5">Option 5</Menu.Item>
-            <Menu.Item key="6">Option 6</Menu.Item>
-            <Menu.Item key="7">Option 7</Menu.Item>
-            <Menu.Item key="8">Option 8</Menu.Item>
+            <Menu.Item key="5">
+              <Link to='/admin/product'>商品管理5Menu.Item</Link>
+            </Menu.Item>
+            <Menu.Item key="6">
+              <Link to='/admin/category'>
+                品类管理6
+              </Link>
+              </Menu.Item>
+            <Menu.Item key="7">
+              <Icon type="mail" />
+              <span>7</span>
+            </Menu.Item>
           </SubMenu>
           <SubMenu
             key="sub2"
             title={
               <span>
                 <Icon type="appstore" />
-                <span>Navigation Two</span>
+                <span>图形图表Navigation</span>
               </span>
             }
-          >
-            <Menu.Item key="9">Option 9</Menu.Item>
+            >
+            <Menu.Item key="9">
+              <Link to='/admin/charts/bar'>
+                柱状图
+              </Link>
+            </Menu.Item>
             <Menu.Item key="10">Option 10</Menu.Item>
             <SubMenu key="sub3" title="Submenu">
-              <Menu.Item key="11">Option 11</Menu.Item>
+              <Menu.Item key="11">11Submenu里面套Submenu</Menu.Item>
               <Menu.Item key="12">Option 12</Menu.Item>
             </SubMenu>
-          </SubMenu>
+          </SubMenu> */}
+
         </Menu>
 
 

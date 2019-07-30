@@ -18,7 +18,6 @@ import storage from '../../utils/storage'
       form.validateFields( (err, values) => {
           // 验证成功
         if (!err) {
-          console.log(111)
           //1、有请求的逻辑------
           const { username, password } = values
           // const response = await reLogin(username,password)
@@ -66,7 +65,7 @@ import storage from '../../utils/storage'
 
     //如果用户已经登录，自动跳转到管理界面
       const user = memory.user
-      if (user) {
+      if (user && user.username) {
         return <Redirect to='/admin' />
       }
     return (
