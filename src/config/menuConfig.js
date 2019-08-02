@@ -6,7 +6,7 @@ const menuList = [
   },
   {
     title: '商品',
-    key: '/admin/product',
+    key: '/admin/products',
     icon: 'mail',
     children: [
       {
@@ -33,7 +33,7 @@ const menuList = [
   },
   {
     title: '图形图表',
-    key: '/admin/charts/bar',
+    key: '/admin/charts',
     icon: 'appstore',
     children: [
       {

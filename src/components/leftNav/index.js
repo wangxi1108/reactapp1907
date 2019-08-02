@@ -9,7 +9,7 @@ import menuList from '../../config/menuConfig'
 const { SubMenu } = Menu;
 
 class LeftNav extends Component{
-//写个方法根据menu菜单数据生成对应标签数组，用map+递归
+//原始方法一：写个方法根据menu菜单数据生成对应标签数组，用map+递归
   getMenuNodes_maps = (menuList) => {
     return menuList.map(item => {
       if (!item.children) {
@@ -38,8 +38,10 @@ class LeftNav extends Component{
       }
     })
   }
-//reduce 对对象路由数据累加方法
+//方法二：reduce 对对象路由数据累加方法+递归调用
   getMenuNodes = (menuList) => {
+  const path = this.props.location.pathname
+
     return menuList.reduce((pre, item) => {
       if (!item.children) {
         pre.push((
@@ -51,6 +53,11 @@ class LeftNav extends Component{
           </Menu.Item>
         ))
       } else {
+        //找当前路由的父节点，来展开菜单
+        const cItem = item.children.find(cItem => cItem.key === path)
+        if (cItem) {
+          this.openKey = item.key          
+        }
         pre.push((
           <SubMenu
             key={item.key}
@@ -69,10 +76,16 @@ class LeftNav extends Component{
     },[])
   }
 
+// componentWillMount:在第一次render()之前执行一次，为第一个render()准备数据，必须同步的
+  componentWillMount () {
+    //这里先写个调用方法为了后面好获取openKey
+    this.menuNodes = this.getMenuNodes(menuList)
+  }
+
   render () {
-    //
+    //获取当前路由
     const path = this.props.location.pathname
-    console.log(33,this.props)
+    const openKey = this.openKey;
 
     return (
       <div className="left-nav">
@@ -85,9 +98,10 @@ class LeftNav extends Component{
           theme="dark"
           // defaultSelectedKeys={[path]}
           selectedKeys={[path]}
-          defaultOpenKeys={['sub1']}
+          defaultOpenKeys={[openKey]}
         >
           {this.getMenuNodes(menuList)}
+          {/* {this.menuNodes} */}
 
           {/* <Menu.Item key="1">
             <Link to='/admin/home'>
