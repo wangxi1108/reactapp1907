@@ -53,7 +53,7 @@ class LeftNav extends Component{
           </Menu.Item>
         ))
       } else {
-        //找当前路由的父节点，来展开菜单
+        //在有子节点的菜单栏中，找当前路由的父节点，来展开菜单
         const cItem = item.children.find(cItem => cItem.key === path)
         if (cItem) {
           this.openKey = item.key          
@@ -86,7 +86,7 @@ class LeftNav extends Component{
     //获取当前路由
     const path = this.props.location.pathname
     const openKey = this.openKey;
-
+    console.log('this.props',this.props)
     return (
       <div className="left-nav">
         <Link to="/admin" className="left-nav-head">
