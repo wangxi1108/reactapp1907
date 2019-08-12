@@ -101,6 +101,10 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/tr
     render中：return <Redirect to='/' />
     render外面函数中：this.props.history.replace('/admin')
 
+要先加工成路由组件，才能js跳转:import { withRouter } from 'react-router-dom';
+this.props.history.push('/')
+
+
 3、定义路由
 //exact不能少，少了跳不了
 // 用Router时要：import { BrowserRouter as Router,Route,Switch } from 'react-router-dom';
@@ -108,3 +112,4 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/tr
 4、路由数组菜单：menuList.reduce((pre, item) => {})
 ：疑问？？？/admin/home  为啥自己写的要这样才能访问路由页面？？？？？
 5、把一个非路由组件包装成路由组件，好拿当前路由值————> withRouter高阶组件：包装非路由组件，返回一个新的组件，新的组件向非路由组件传递3个属性：history、location、match。（菜单组件就需要）
+6、怎么在Dropdown下拉菜单的子菜单添加事件？？

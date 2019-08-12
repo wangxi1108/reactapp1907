@@ -1,14 +1,16 @@
 import React, { Component } from 'react'
 import { Menu, Dropdown, Icon } from 'antd'
+import { withRouter } from 'react-router-dom';
 import './index.less'
 import memory from '../../utils/memory'
-
+import storage from '../../utils/storage'
 const menu = (
   <Menu>
     <Menu.Item>
-      <a rel="noopener noreferrer" href="">
-        退出
-      </a>
+      {/* <a rel="noopener noreferrer" href="">
+        退出1
+      </a> */}
+
     </Menu.Item>
     <Menu.Item>
       <a target="_blank" rel="noopener noreferrer" href="http://www.taobao.com/">
@@ -18,9 +20,9 @@ const menu = (
   </Menu>
 );
 
-export default class HeaderTop extends Component{
+class HeaderTop extends Component{
   state = {
-    currentTime: (new Date()).getDate()
+    currentTime: (new Date()).getFullYear()+'-'+((new Date()).getMonth()+1)+'-'+(new Date()).getDate()
   }
   
   getTime = () => {
@@ -29,7 +31,10 @@ export default class HeaderTop extends Component{
       this.setState({currentTime})
     },1000*360*24)
   }
-  
+  loginOut = () => {
+    storage.removeUser();
+    this.props.history.push('/')
+  }
   componentDidMount(){
     this.getTime()
   }
@@ -39,15 +44,19 @@ export default class HeaderTop extends Component{
       <div className="headerTop">
         HeaderTop 欢迎：{memory.user.username}
         {currentTime}
+        <span className="login-out" onClick={()=>this.loginOut()}>退出</span>
+
         <div className="user-ul">
           <Dropdown overlay={menu}>
             <a className="ant-dropdown-link" href="#">
-            {memory.user.username}<Icon type="down" />
+              {memory.user.username}
+              <Icon type="down" />
             </a>
           </Dropdown>
         </div>
-        
       </div>
     )
   }
 }
+
+export default withRouter(HeaderTop)
