@@ -1,25 +1,10 @@
 import React, { Component } from 'react'
-import { Menu, Dropdown, Icon, Modal } from 'antd'
+import { Modal } from 'antd'
 import { withRouter } from 'react-router-dom';
-import LinkButton from '../../components/linkButton'
+import LinkButton from '../linkButton'
 import './index.less'
 import memory from '../../utils/memory'
 import storage from '../../utils/storage'
-const menu = (
-  <Menu>
-    <Menu.Item>
-      {/* <a rel="noopener noreferrer" href="">
-        退出1
-      </a> */}
-
-    </Menu.Item>
-    <Menu.Item>
-      <a target="_blank" rel="noopener noreferrer" href="http://www.taobao.com/">
-        2nd menu item
-      </a>
-    </Menu.Item>
-  </Menu>
-);
 
 class HeaderTop extends Component{
   state = {
@@ -54,14 +39,7 @@ class HeaderTop extends Component{
         {currentTime}
         {/* <span className="login-out" onClick={()=>this.loginOut()}>退出</span> */}
         <LinkButton onClick={()=>this.loginOut()}>退出</LinkButton>
-
         <div className="user-ul">
-          <Dropdown overlay={menu}>
-            <a className="ant-dropdown-link" href="javascript:">
-              {memory.user.username}
-              <Icon type="down" />
-            </a>
-          </Dropdown>
         </div>
       </div>
     )
