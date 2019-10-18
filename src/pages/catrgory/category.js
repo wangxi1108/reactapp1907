@@ -15,6 +15,10 @@ export default class Category extends Component{
       visible: true,
     });
   };
+
+  delete= (text, record)=>{
+    console.log('row',text,22, record)
+  }
   
   render () {
     const title = '一级分类列表'
