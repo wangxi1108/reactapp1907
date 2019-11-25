@@ -28,15 +28,19 @@ export default class Category extends Component{
     const data = [
       {
         key: '1',
-        name: '电视'
+        name: '电视',
+        productName:'越钢'
       },
       {
         key: '2',
-        name: '菜刀'
+        name: '菜刀',
+        productName:'棒线材基地'
+
       },
       {
         key: '3',
-        name: '床铺'
+        name: '床铺',
+        productName:'陕钢'
       },
     ];
     const columns = [
@@ -46,12 +50,17 @@ export default class Category extends Component{
         key: 'name',
       },
       {
+        title: '产地',
+        dataIndex: 'productName',
+        key: 'productName',
+      },
+      {
         title: 'Action',
         key: 'action',
         width: 230,
         render: (text, record) => (
           <div>
-            <LinkButton>修改分类</LinkButton>
+            <LinkButton>修改分类{record.name}</LinkButton>
             <LinkButton>查看子项</LinkButton>
             <LinkButton>删除</LinkButton>
           </div>
@@ -62,7 +71,9 @@ export default class Category extends Component{
       <div className="category">
         <Card title={title} extra={extra} style={{ width: '100%' }}>
           <div className="table-box">
-            <Table bordered rowKey='key' columns={columns} dataSource={data} />
+            <Table bordered rowKey='key' columns={columns} dataSource={data} pagination={{
+              total:50
+            }} />
           </div> 
         </Card>
       </div>
